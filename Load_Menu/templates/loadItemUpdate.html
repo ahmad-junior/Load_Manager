@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% block title %}Update | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/add.css' %}">{% endblock %}
+{% block content %}
+<form id="add_from" action="resultAdd" method="POST">
+    {% csrf_token %} 
+    <div class="form_item">
+        <label for="add_id">ID : </label>
+        <input type="number" name="add_id" id="add_id" value="{{loadItem.id}}" readonly required>
+    </div>
+    <div class="form_item">
+        <label for="add_name">Name : </label>
+        <input type="text" name="add_name" id="add_name" value="{{loadItem.name}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_number">Number : </label>
+        <input type="text" name="add_number" id="add_number" value="{{loadItem.number}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_price">Price : </label>
+        <input type="number" name="add_price" id="add_price" value="{{loadItem.price}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_gender">Gender : </label>
+        <input type="text" name="add_gender" id="add_gender" value="{{loadItem.gender}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_date">Date : </label>
+        <input type="text" name="add_date" id="add_date" readonly value="{{today}}">
+    </div>
+    <div class="form_item">
+        <label for="add_load_type">Load Type : </label>
+        <input type="text" name="add_load_type" id="add_load_type" value="{{loadItem.load_type}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_operator">Operator : </label>
+        <input type="text" name="add_operator" id="add_operator" value="{{loadItem.operator}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_address">Address : </label>
+        <input type="text" name="add_address" id="add_address" value="{{loadItem.address}}" required>
+    </div>
+    <div class="form_item">
+        <label for="add_shop_keeper">Shop Keeper : </label>
+        <input type="text" name="add_shop_keeper" id="add_shop_keeper" value="{{loadItem.shop_keeper}}"required>
+    </div>
+    <div id="popupBox">
+        <p id="popUpContent">
+            
+        </p>
+        <div class="btns">
+            <button type="button" id="btnCancelPI" class="btnPrimary">Cancel</button>
+            <button type="submit" id="btnOKPI" class="btnPrimary">OK</button>
+        </div>
+    </div>
+    <div class="btns">
+        <a class="btnPrimary" href="/">Cancel</a>
+        <button type="button" id="updateBtnPI" class="btnPrimary">Update</button>
+    </div>
+</form>
+
+{% load static %}
+{% block script %}<script src="{% static 'Load_Menu/js/prewItemsUp.js' %}"></script>{% endblock %}
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block title %}Delete Item | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/delete.css' %}">{% endblock %}
+{% block content %}
+<form action="previewItemsUpdate" id="del_form" method="POST">
+    {% csrf_token %}
+    <input type="text" maxlength="11" name="inputItem" id="inputItem" placeholder="Enter number to search..." required>
+    <button class="btnPrimary" type="submit">Search</button>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Views | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/view.css' %}">{% endblock %}
+{% block content %}
+<h1 class="primary-heading">Database</h1>
+<table class="table_r-v">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Price</th>
+            <th>Gender</th>
+            <th>Date</th>
+            <th>Load Type</th>
+            <th>Operator</th>
+            <th>Address</th>
+            <th>Shop Keeper</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loadMenuItem in loadMenus reversed %}
+        <tr>
+            <td>{{loadMenuItem.id}}</td>
+            <td>{{loadMenuItem.name}}</td>
+            <td>{{loadMenuItem.number}}</td>
+            <td>{{loadMenuItem.price}}</td>
+            <td>{{loadMenuItem.gender}}</td>
+            <td>{{loadMenuItem.date}}</td>
+            <td>{{loadMenuItem.load_type}}</td>
+            <td>{{loadMenuItem.operator}}</td>
+            <td>{{loadMenuItem.address}}</td>
+            <td>{{loadMenuItem.shop_keeper}}</td>
+        </tr>
+        {% empty %}
+        <td colspan="10">Record Not Found!</td>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

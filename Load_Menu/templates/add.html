@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block title %}Add Item | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/add.css' %}">{% endblock %}
+{% block content %}
+<form id="add_from" action="resultAdd" method="POST">
+    {% csrf_token %} 
+    <div class="form_item">
+        <label for="add_id">ID : </label>
+        <input type="number" name="add_id" id="add_id" value="{{max_value}}" readonly required>
+    </div>
+    <div class="form_item">
+        <label for="add_name">Name : </label>
+        <input type="text" name="add_name" id="add_name" placeholder="Muhammad Ahmad" required>
+    </div>
+    <div class="form_item">
+        <label for="add_number">Number : </label>
+        <input type="text" name="add_number" id="add_number" maxlength="11" placeholder="03238994027" required>
+    </div>
+    <div class="form_item">
+        <label for="add_price">Price : </label>
+        <input type="number" name="add_price" id="add_price" min="80" placeholder="80" required>
+    </div>
+    <div class="form_item">
+        <label for="add_gender">Gender : </label>
+        <select name="add_gender" id="add_gender" required>
+            <option disabled selected>Select</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form_item">
+        <label for="add_date">Date : </label>
+        <input type="text" name="add_date" id="add_date" readonly value="{{today}}">
+    </div>
+    <div class="form_item">
+        <label for="add_load_type">Load Type : </label>
+        <select name="add_load_type" id="add_load_type" required>
+            <option disabled selected>Select</option>
+            <option value="E - Load">E - Loead</option>
+            <option value="Package">Package</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form_item">
+        <label for="add_operator">Operator : </label>
+        <select name="add_operator" id="add_operator" required>
+            <option disabled selected>Select</option>
+            {% for operator in operators %}
+                <option value="{{operator.title}}">{{operator.title}}</option>
+            {% empty %}
+                <option disabled selected value="RNF">Record Not Found!<option/>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form_item">
+        <label for="add_address">Address : </label>
+        <input type="text" name="add_address" id="add_address" placeholder="Datewall, Narowal" required>
+    </div>
+    <div class="form_item">
+        <label for="add_shop_keeper">Shop Keeper : </label>
+        <input type="text" name="add_shop_keeper" id="add_shop_keeper" placeholder="Awais Shahid" required>
+    </div>
+    <a href="/" class="btnPrimary" id="addSubmitBtn" type="submit">Cancel</a>
+    <button class="btnPrimary" id="addSubmitBtn" type="submit">Add</button>
+</form>
+{% endblock %}

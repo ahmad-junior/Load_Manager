@@ -1,0 +1,95 @@
+#add_from{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+#add_from label{
+    color: black;
+    text-shadow: 0px 3px 10px white;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: right;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: 0.3s all ease;
+}
+
+#add_from label:hover{
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#add_from input, #add_from select{
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    background-color: #fff;
+    width: 300px;
+    padding: 5px 10px;
+}
+
+#add_from input:hover, #add_from select:hover, #add_from input:focus, #add_from select:focus{
+    outline: 2px solid #243186;
+}
+
+#add_from input[type="submit"]{
+    background-color: #70007a;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 10px 0px;
+}
+
+#add_from input[type="submit"]:hover{
+    transform: scale(1.03);
+}
+
+.form_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.3s all ease;
+}
+
+.form_item:hover{
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.btns{
+    grid-column: span 2;
+    margin-top: 20px;
+    gap: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Handle PopUpBox */
+#popupBox{
+    position: absolute;
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+    background: #232323;
+    width: 400px;
+    min-height: 100px;
+    border: 1px solid black;
+    border-radius: 5px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease-in-out;
+}
+
+#popUpContent{
+    color: #fff;
+    padding: 10px 5px;
+    font-family: monospace, cursive;
+}

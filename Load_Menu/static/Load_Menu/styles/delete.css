@@ -1,0 +1,7 @@
+#del_form input{
+    border: none;
+    outline: none;
+    border-bottom: 2px solid crimson;
+    padding: 5px 10px;
+    width: 300px;
+}

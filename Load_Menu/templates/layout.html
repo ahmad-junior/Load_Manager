@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Load_Menu/styles/globalIn.css' %}">
+    {% block style %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    {% comment "Navigation Bar Starts" %}
+    {% endcomment %}
+    <nav id="navigationBar">
+        <div class="navBtns">
+            {% for item in NavItems %}
+            <a href="{{item.url}}" class="btnPrimary">{{item.name}}</a>
+            {% empty %}
+            <h1>Record Not Found!</h1>
+            {% endfor %}
+        </div>
+
+        <div class="logo_title">
+            <h1 class="logo_heading">Load Manager</h1>
+        </div>
+        
+        <div class="searchBox">
+            <form action="" method="">
+                <input type="text" name="inputItem" placeholder="Search..." required>
+                <button class="btnPrimary" type="submit">Search</button>
+            </form>            
+        </div>
+    </nav>
+
+    {% comment "Main Container for content starts" %}
+    {% endcomment %}
+    <div class="mainContainer">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    {% comment "Footer Starts" %}
+    {% endcomment %}
+    <footer id="footerBar">
+        <p>Copyright &copy; <span id="dateYear"></span> | Load Manager and all rights reserved.</p>
+    </footer>
+
+    {% comment "Script to Get Year and fill" %}
+    {% endcomment %}
+    <script>
+        const dateYear = document.getElementById("dateYear"),
+            newDate = new Date().getFullYear();
+        
+            dateYear.innerText = newDate;
+    </script>
+</body>
+</html>

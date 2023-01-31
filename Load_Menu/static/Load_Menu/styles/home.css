@@ -1,0 +1,59 @@
+.allert{
+    width: 100%;
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    padding: 0px 20px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+    background-color: #d45e5ea4;
+}
+
+#closeBtn{
+    font-size: 2rem;
+    color: #fff;
+}
+
+.upBox{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    padding: 10px 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rechargeDetails{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+}
+
+.table_r-d{
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+
+.table_r-d th{
+    background: #007afc8c;
+    color: white;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    padding: 10px;
+}
+
+.table_r-d td{
+    border-left: 1px dotted #fff;
+    padding: 10px;
+}
+
+.table_r-d tr:nth-child(odd){
+    background: #007afc77;
+}
+
+.table_r-d tr:nth-child(even){
+    background: #007afca8;
+}

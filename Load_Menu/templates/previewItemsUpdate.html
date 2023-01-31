@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %}Preview Item | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/view.css' %}">{% endblock %}
+{% block content %}
+    <h1 class="primary-heading">Items In Database</h1>
+    <div class="meTable">
+        <div class="meTableHeadings">
+            <div class="meTableHeading">ID</div>
+            <div class="meTableHeading">Name</div>
+            <div class="meTableHeading">Number</div>
+            <div class="meTableHeading">Address</div>
+        </div>
+            {% for item in items %}
+            <div class="meTableDatas parentShowOnHover">
+                <div class="meTableData">{{ item.id }}</div>
+                <div class="meTableData">{{ item.name }}</div>
+                <div class="meTableData">{{ item.number }}</div>
+                <div class="meTableData">{{ item.address }}</div>
+                <div class="childShowOnHover">
+                    <form action="itemPreviewUpdate" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ item.id }}" name="IdToHandle">
+                        <a ><button type="submit" class="btnPrimary">Load</button></a>
+                    </form>
+                </div>
+            </div>
+            {% empty %}
+                <div class="meTableData"> <strong>'{{searchItem}}'</strong> Not Found. In database contacts</div>
+            {% endfor %}
+    </div>
+{% endblock %}

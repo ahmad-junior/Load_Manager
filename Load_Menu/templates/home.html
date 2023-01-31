@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% block title %}Home | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/home.css' %}">{% endblock %}
+{% block content %}
+<div class="allert">
+    <p>{{message_allert}}</p>
+    <div id="closeBtn">&times;</div>
+</div>
+<div class="upBox">
+    <div class="cardBtns">
+        {% for card in cards %}
+        <div class="card">
+            <div class="icon">
+                <img src="{{card.pic_url}}" alt="{{card.pic_alt}}">
+            </div>
+            <div class="title_card">{{card.title}}</div>
+        </div>
+        {% empty %}
+        <h1>Record Not Found!</h1>
+        {% endfor %}
+    </div>
+
+    <div class="rechargeDetails">
+        <h3 class="secondary-heading">Today Rechare's Details</h3>
+        <table class="table_r-d">
+            <thead>
+                <tr>
+                    <th>Operator</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for operator in operators %}
+                <tr>
+                    <td>{{operator.title}}</td>
+                    <td>{{operator.total}}</td>
+                </tr>
+                {% empty %}
+                <td colspan="2">Record Not Found!</td>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="downBox recent_Recharges">
+    <h1 class="primary-heading">Recents</h1>
+    <table class="table_r-d">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Number</th>
+                <th>Price</th>
+                <th>Gender</th>
+                <th>Date</th>
+                <th>Load Type</th>
+                <th>Operator</th>
+                <th>Address</th>
+                <th>Shop Keeper</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for recent in recents reversed %}
+            <tr>
+                <td>{{recent.id}}</td>
+                <td>{{recent.name}}</td>
+                <td>{{recent.number}}</td>
+                <td>{{recent.price}}</td>
+                <td>{{recent.gender}}</td>
+                <td>{{recent.date}}</td>
+                <td>{{recent.load_type}}</td>
+                <td>{{recent.operator}}</td>
+                <td>{{recent.address}}</td>
+                <td>{{recent.shop_keeper}}</td>
+            </tr>
+            {% empty %}
+            <td colspan="10">Record Not Found!</td>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
