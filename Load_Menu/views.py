@@ -35,26 +35,29 @@ def add(request):
         max_value = int(LoadMenu.objects.values().last()['id']) + 1
     except Exception as e:
         max_value = 1
-    today = timezone.now
+    # Date fomat yyyy-mm-dd
+    today = timezone.now().date().strftime("%Y-%m-%d")
     params = {"NavItems": NavItems, "cards": cards, "operators": operators, "max_value": max_value, "today": today}
     return render(request, "add.html", params)
 
 # Add item to dataBase
 def handleAddItem(request):
     if request.method == "POST":
+        id = request.POST['add_id']
         name = request.POST['add_name']
         number = request.POST['add_number']
         price = request.POST['add_price']
         gender = request.POST['add_gender']
+        date = request.POST['add_date']
         load_type = request.POST['add_load_type']
         operator = request.POST['add_operator']
         address = request.POST['add_address']
         shop_keeper = request.POST['add_shop_keeper']
         
-        newLoatItem = LoadMenu(name=name, number=number, price=price, gender=gender, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
+        newLoatItem = LoadMenu(id=id, name=name, number=number, price=price, gender=gender, date=date, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
         newLoatItem.save()
         
-        message_allert = f"You have successfully added a new item <strong>{newLoatItem.name} {newLoatItem.number} </strong> to the database"
+        # message_allert = f"You have successfully added a new item <strong>{newLoatItem.name} {newLoatItem.number} </strong> to the database"
         
         return redirect('HomePage')
     else:
@@ -125,7 +128,6 @@ def handleUpdateItem(request):
         shop_keeper = request.POST['add_shop_keeper']
         
         itemToUpdate = LoadMenu.objects.all().get(id=id)
-        itemToUpdate.delete()
 
         itemToUpdate.id = id        
         itemToUpdate.date = date 
@@ -147,7 +149,7 @@ def handleUpdateItem(request):
 def itemPriewToUpdate(request):
     if request.method == "POST":
         IdToHandle = request.POST['IdToHandle']
-        today = timezone.now
+        today = timezone.now().date().strftime("%Y-%m-%d")
         loadItem = LoadMenu.objects.all().get(id = IdToHandle)
         NavItems = NavItem.objects.all()
         params = {"NavItems": NavItems, "loadItem": loadItem, "today":today}

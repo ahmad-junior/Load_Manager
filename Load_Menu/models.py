@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib import admin
-from django.utils import timezone
 
 
 # Navigation Items
@@ -47,7 +46,7 @@ class LoadMenu(models.Model):
     number = models.CharField(max_length=11)
     price = models.SmallIntegerField()
     gender = models.CharField(max_length=20)
-    date = models.DateField(default=timezone.now)
+    date = models.DateField()
     load_type = models.CharField(max_length=20)
     operator = models.CharField(max_length=50)
     address = models.TextField(max_length=255)

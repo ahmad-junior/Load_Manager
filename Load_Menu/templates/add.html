@@ -24,7 +24,7 @@
     <div class="form_item">
         <label for="add_gender">Gender : </label>
         <select name="add_gender" id="add_gender" required>
-            <option disabled selected>Select</option>
+            <option disabled selected value="disabled">Select</option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Other">Other</option>
@@ -37,7 +37,7 @@
     <div class="form_item">
         <label for="add_load_type">Load Type : </label>
         <select name="add_load_type" id="add_load_type" required>
-            <option disabled selected>Select</option>
+            <option disabled selected value="disabled">Select</option>
             <option value="E - Load">E - Loead</option>
             <option value="Package">Package</option>
             <option value="Other">Other</option>
@@ -46,7 +46,7 @@
     <div class="form_item">
         <label for="add_operator">Operator : </label>
         <select name="add_operator" id="add_operator" required>
-            <option disabled selected>Select</option>
+            <option disabled selected value="disabled">Select</option>
             {% for operator in operators %}
                 <option value="{{operator.title}}">{{operator.title}}</option>
             {% empty %}
@@ -62,7 +62,21 @@
         <label for="add_shop_keeper">Shop Keeper : </label>
         <input type="text" name="add_shop_keeper" id="add_shop_keeper" placeholder="Awais Shahid" required>
     </div>
-    <a href="/" class="btnPrimary" id="addSubmitBtn" type="submit">Cancel</a>
-    <button class="btnPrimary" id="addSubmitBtn" type="submit">Add</button>
+
+    <div id="popupBox">
+        <p id="popUpContent">
+            
+        </p>
+        <div class="btns">
+            <button type="button" id="btnCancelPI" class="btnPrimary">Cancel</button>
+            <button type="submit" id="btnOKPI" class="btnPrimary">OK</button>
+        </div>
+    </div>
+
+    <a href="/" class="btnPrimary" id="addCancelBtn" type="submit">Cancel</a>
+    <button class="btnPrimary" id="addSubmitBtn" style="opacity: 0.5; pointer-events: none;" type="button" >Add</button>
 </form>
+
+{% load static %}
+{% block script %}<script src="{% static 'Load_Menu/js/add.js' %}"></script>{% endblock %}
 {% endblock %}
