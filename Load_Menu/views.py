@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import NavItem, CardItem, OperatorItem, LoadMenu
+from django.contrib import messages
 from django.utils import timezone
 
 # Create your views here.
@@ -54,12 +55,32 @@ def handleAddItem(request):
         address = request.POST['add_address']
         shop_keeper = request.POST['add_shop_keeper']
         
-        newLoatItem = LoadMenu(id=id, name=name, number=number, price=price, gender=gender, date=date, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
-        newLoatItem.save()
+        isNumber = False
         
-        # message_allert = f"You have successfully added a new item <strong>{newLoatItem.name} {newLoatItem.number} </strong> to the database"
+        try:
+            if int(number) > 0:
+                isNumber = True
+            else:
+                isNumber = False
+        except:
+            message_allert = f"You have enter invalid Phone Number Please Enter a valid."
+            messages.error(request, message_allert)
+            return redirect('HomePage')
         
-        return redirect('HomePage')
+        # Form Validation
+        if isNumber:
+            newLoatItem = LoadMenu(id=id, name=name, number=number, price=price, gender=gender, date=date, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
+            newLoatItem.save()
+            
+            # Allert Message and redirect to the Home
+            message_allert = f"You have successfully added a new item {newLoatItem.name} | {newLoatItem.number} to the database"
+            messages.success(request, message_allert)
+        
+            return redirect('HomePage')
+        else:
+            message_allert = f"Error your record can't able to add in our database! Try to add a valid record."
+            messages.error(request, message_allert)
+            return redirect('HomePage')
     else:
         return HttpResponse(request, "Error")
 
@@ -108,6 +129,7 @@ def previewUpdate(request):
                 searchItem = f"{searchItem} is not a phone number"
         except:
             searchItem = f"{searchItem} is not a phone number"
+        
         items = LoadMenu.objects.all().filter(number = searchItem).values()
         params = {"NavItems": NavItems, "items": items, "searchItem": searchItem}
         return render(request, "previewItemsUpdate.html", params)
@@ -142,9 +164,13 @@ def handleUpdateItem(request):
         
         itemToUpdate.save()
         
+        mes_alt = f"Updated Successfully!"
+        messages.success(request, mes_alt)
         return redirect('HomePage')
     else:
-        return HttpResponse(request, "Error")
+        mes_alr = f"Unknown Error! Please try again!"
+        messages.success(request, mes_alt)
+        return redirect('HomePage')
 
 def itemPriewToUpdate(request):
     if request.method == "POST":
@@ -171,8 +197,12 @@ def itemPriewToDelete(request):
 def handleDeleteItem(request):
     if request.method == "POST":
         id = request.POST['add_id']
-        itemToDelete = LoadMenu.objects.all().get(id=id)  
-        itemToDelete.delete()      
+        itemToDelete = LoadMenu.objects.all().get(id=id)
+        mes_alr = f"You have successfully Removed {itemToDelete.name} | {itemToDelete.number} from database."
+        itemToDelete.delete()
+        messages.success(request, mes_alr)
         return redirect('HomePage')
     else:
-        return HttpResponse(request, "Error")
+        mes_alr = f"Unknown Error! Please try again!"
+        messages.error(request, mes_alr)
+        return redirect('HomePage')

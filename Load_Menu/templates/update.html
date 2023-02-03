@@ -6,6 +6,9 @@
 <form action="previewItemsUpdate" id="del_form" method="POST">
     {% csrf_token %}
     <input type="text" maxlength="11" name="inputItem" id="inputItem" placeholder="Enter number to search..." required>
-    <button class="btnPrimary" type="submit">Search</button>
+    <button id="submitBtnBoth" class="btnPrimary" type="submit" style="opacity: 0.5; cursor: not-allowed">Search</button>
 </form>
+
+{% load static %}
+{% block script %}<script src="{% static 'Load_Menu/js/updateValidation.js' %}"></script>{% endblock %}
 {% endblock %}

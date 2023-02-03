@@ -3,10 +3,6 @@
 {% load static %}
 {% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/home.css' %}">{% endblock %}
 {% block content %}
-<div class="allert">
-    <p>{{message_allert}}</p>
-    <div id="closeBtn">&times;</div>
-</div>
 <div class="upBox">
     <div class="cardBtns">
         {% for card in cards %}

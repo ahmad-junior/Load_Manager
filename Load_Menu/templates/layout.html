@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'Load_Menu/styles/globalIn.css' %}">
+    <link rel="shortcut icon" href="{% static 'Load_Menu/images/favicon.png' %}" type="image/x-icon">
     {% block style %}{% endblock %}
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -33,6 +34,17 @@
         </div>
     </nav>
 
+
+    {% comment "Allert Messages" %}
+    {% endcomment %}
+
+    {% for message in messages %}
+        <div id="alert-box" class="allert allert-{{message.tags}}">
+            <p><strong class="text-upper">{{message.tags}}</strong> : {{message}}</p>
+            <div id="closeBtn">&times;</div>
+        </div>
+    {% endfor %}
+
     {% comment "Main Container for content starts" %}
     {% endcomment %}
     <div class="mainContainer">
@@ -54,5 +66,10 @@
         
             dateYear.innerText = newDate;
     </script>
+
+{% if messages %}
+    {% load static %}
+    {% block script %}<script src="{% static 'Load_Menu/js/alert.js' %}"></script>{% endblock %}
+{% endif %}
 </body>
 </html>

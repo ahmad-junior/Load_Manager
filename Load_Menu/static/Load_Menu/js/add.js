@@ -17,12 +17,21 @@ const addBtn = document.getElementById('addSubmitBtn');
 addBtn.style.opacity = '0.5';
 addBtn.style.cursor = 'not-allowed';
 
+// Check that input only have number or not
+const containsOnlyNumbers = (str) => {
+    return /^\d+$/.test(str);
+}
+
+// Check that Contains number or not
+const isNumber = containsOnlyNumbers(number.value);
+
 // Form Validation
 const formValidation = () => {
-    if(id.value == "" || name.value == "" || price.value <= 79 || (gender.value == "disabled" || loadType.value == "disabled" || operator.value == "disabled") || date.value == "" || loadType.value == "" || operator.value == "" || address.value == "" || shopKeeper.value == ""){
+    if(id.value == "" || name.value == "" || price.value <= 79 || (gender.value == "disabled" || loadType.value == "disabled" || operator.value == "disabled") || date.value == "" || loadType.value == "" || operator.value == "" || address.value == "" || shopKeeper.value == "" || number.value == "" || number.value.length < 11 || number.value.length > 11 || isNumber == true){
         addBtn.style.opacity = '0.5';
         addBtn.style.backgroundColor = '#ff0000';
         addBtn.style.cursor = 'not-allowed';
+        addBtn.style.pointerEvents = 'none';
     } else {
         addBtn.style.opacity = '1';
         addBtn.style.backgroundColor = '#00ff00';
