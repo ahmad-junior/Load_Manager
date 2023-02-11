@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Load_Menu/styles/login_styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'Load_Menu/images/favicon.png' %}" type="image/x-icon">
+    <title>Login | Load Manger</title>
+</head>
+<body>
+    <div class="container">
+        <div class="formHeader">
+            <p>Login</p>
+        </div>
+        <form action="handleLogin" method="post" id="form_login">
+            {% csrf_token %} 
+            <div class="inputCridentials">
+                <div id="FieldsLogin">
+                    <input type="text" name="userNameLogin" id="userNameLogin" placeholder="Enter your username or email">
+                    <div class="userPassword">
+                        <input type="password" name="userPasswordLogin" id="userPasswordLogin" placeholder="Enter your password">
+                        <span id="SHPassword">Show</span>
+                    </div>
+                </div>
+            </div>
+            <div id="isNotReboot">
+                <p>Please Solve the following Puzzle!</p>
+                <div class="inside">
+                    <input type="text" name="OPOne" id="isNotRebootOperandOne" style="pointer-events: none; opacity: 0.7;">
+                    <span class="bold"> + </span>
+                    <input type="text" name="OPTwo" id="isNotRebootOperandTwo" style="pointer-events: none; opacity: 0.7;">
+                    <span class="bold"> = </span>
+                    <input type="text" name="isNotRebootSollution" id="isNotRebootSollution">
+                    <button type="button" id="refreshPuzzle" class="btnPrimary">Refresh</button>
+                </div>
+            </div>
+            <div class="btns">
+                <a href="sinup" class="btnPrimary">SinUp</a>
+                <button type="submit" class="btnPrimary" id="submitButtonLogin" style="pointer-events: none; opacity: 0.5;">Login</button>
+            </div>
+        </form>
+    </div>
+
+    {% load static %}
+    {% block script %}<script src="{% static 'Load_Menu/js/login_validation.js' %}"></script>{% endblock %}
+</body>
+</html>

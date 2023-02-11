@@ -1,0 +1,139 @@
+/* Universal Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    min-height: 100vh;
+    background: #232323;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.formHeader{
+    font-size: 20px;
+    border-radius: 5px 5px 0px 0px;
+    font-weight: bold;
+    text-shadow: 0px 0px 20px #fff;
+    width: 400px;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+}
+
+#form_login{
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 20px;
+    border-radius: 0px 0px 10px 10px;
+    box-shadow: 0px 5px 20px #111;
+    gap: 10px;
+}
+
+.inputCridentials{
+    width: 100%;
+    display: flex;
+    gap: 10px;
+}
+
+#FieldsLogin{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input{
+    width: 100%;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: #fff;
+    padding: 5px 10px;
+    outline: none;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+input::placeholder{
+    color: #000;
+}
+
+.userPassword{
+    position: relative;
+}
+
+#SHPassword{
+    user-select: none;
+    position: absolute;
+    cursor: pointer;
+    top: 25%;
+    right: 5%;
+    color: #000;
+    font-size: 0.8rem;
+}
+
+#isNotReboot{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#isNotReboot input{
+    width: 40px;
+    background: none;
+    font-weight: bold;
+    border-radius: 0;
+    color: black;
+    border: 2px dashed black;
+}
+
+#refreshPuzzle{
+    margin-left: 1rem;
+}
+
+.btns{
+    width: 100%;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnPrimary{
+    cursor: pointer;
+    color: white;
+    background: #0079fc;
+    outline: none;
+    border: 2px solid transparent;
+    padding: 5px 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    box-shadow: 2px 5px 10px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.btnPrimary:hover{
+    animation: btnAnimation 0.3s;
+}
+
+@keyframes btnAnimation {
+    from{
+        scale: 1.2;
+    }
+    to{
+        scale: 1;
+    }
+}

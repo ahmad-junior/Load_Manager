@@ -1,0 +1,200 @@
+/* Universal Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: #232323;
+}
+
+.header_sinup{
+    text-align: center;
+    color: #fff;
+    width: max(400px, 100%);
+    font-size: 1.4rem;
+    font-weight: bold;
+    background: #000;
+    padding: 20px;
+    border-radius: 5px 5px 0px 0px;
+}
+
+#form_sinup{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    width: max(400px, 100%);
+    max-width: 500px;
+    height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    background: #fff;
+    border-radius: 0px 0px 10px 10px;
+}
+
+#form_sinup::-webkit-scrollbar{
+    width: 10px;
+}
+
+#form_sinup::-webkit-scrollbar-track{
+    background: #fff;
+}
+
+#form_sinup::-webkit-scrollbar-thumb{
+    background: #000;
+    border-radius: 5px;
+}
+
+#form_sinup div{
+    width: 100%;
+}
+
+#form_sinup div input{
+    padding: 10px;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+    outline: none;
+}
+
+#form_sinup .email_user input{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+#form_sinup div input:focus{
+    border: 1px solid #000;
+}
+
+.password_user_field{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.validationToUserPassword{
+    animation: animate 0.5s;
+    display: none;
+    color: #ff0000;
+    font-size: 0.8rem;
+    padding: 10px;
+    font-weight: bold;
+}
+
+#password_user:focus ~ .validationToUserPassword{
+    display: block;
+}
+
+#password_user_confirm:focus ~ .validationToUserPassword{
+    display: block;
+}
+
+.birthday_user input{
+    width: 100%;
+}
+
+.gender_user{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.box-it{
+    padding: 8px 10px;
+    border: 1px solid #4e4e4e;
+    border-radius: 5px;
+}
+
+.box-it input{
+    margin-right: 5px;
+}
+
+#button_sinup{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#button_sinup:hover{
+    background: #4e4e4e;
+}
+
+#isNotReboot{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+#isNotReboot input{
+    width: 40px !important;
+    background: none !important;
+    font-weight: bold !important;
+    border-radius: 0 !important;
+    color: black;
+    border: 2px dashed black !important;
+}
+
+.loginLink{
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #000;
+    font-weight: bold;
+}
+
+
+.header_info_sinup{
+    width: 100%;
+    text-align: center;
+    padding: 5px 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+.primaryHeading{
+    font-size: 1.4rem;
+    color: #000;
+}
+
+label{
+    cursor: pointer;
+}
+
+.inside{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bold{
+    font-weight: bold;
+}
+
+
+/* Animation */
+@keyframes animate{
+    0%{
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}

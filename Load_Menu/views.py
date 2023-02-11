@@ -1,13 +1,66 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import NavItem, CardItem, OperatorItem, LoadMenu
+from .models import NavItem, OperatorItem, LoadMenu, OperatorItem
 from django.contrib import messages
 from django.utils import timezone
+from .backValidations import isValid
+from django.db.models import Q
 
 # Create your views here.
+# Login Page
+def login(request):
+    if request.method == "POST":
+        # User Credientials
+        userName = request.POST['userNameLogin']
+        userPassword = request.POST['userPasswordLogin']
+        
+        # Puzzle
+        OPOne = request.POST['OPOne']
+        OPTwo = request.POST['OPTwo']
+        isNotRebootSollution = request.POST['isNotRebootSollution']
+        
+        
+        try:
+            if int(OPOne) + int(OPTwo) == int(isNotRebootSollution):
+                return HttpResponse("good")
+            else:
+                return HttpResponse("bad")
+        except: 
+            pass
+    else:
+        return render(request, "login_page.html")
+        
+        # params = {"User Name": userName}
+        
+        # return HttpResponse(params.items())
+
+# SinUp Page
+def sinup(request):
+    if request.method == "POST":
+        # User Credientials
+        userName = request.POST['userNameSinup']
+        userPassword = request.POST['userPasswordSinup']
+        userPasswordConfirm = request.POST['userPasswordSinupConfirm']
+        
+        # Puzzle
+        OPOne = request.POST['OPOne']
+        OPTwo = request.POST['OPTwo']
+        isNotRebootSollution = request.POST['isNotRebootSollution']
+        
+        try:
+            if int(OPOne) + int(OPTwo) == int(isNotRebootSollution):
+                return HttpResponse("good")
+            else:
+                return HttpResponse("bad")
+        except: 
+            pass
+    else:
+        return render(request, "sinup_page.html")
+
+
+# Home Page
 def home(request):
     NavItems = NavItem.objects.all()
-    cards = CardItem.objects.all()
     operators = OperatorItem.objects.all()
     recents = LoadMenu.objects.all()[:10]
     
@@ -24,25 +77,11 @@ def home(request):
             op.total += x
 
 
-    params = {"NavItems": NavItems, "cards": cards, "operators": operators, "recents": recents}
+    params = {"NavItems": NavItems, "operators": operators, "recents": recents}
     return render(request, "home.html", params)
 
-# Add Page
+# Add Item
 def add(request):
-    NavItems = NavItem.objects.all()
-    cards = CardItem.objects.all()
-    operators = OperatorItem.objects.all()
-    try:
-        max_value = int(LoadMenu.objects.values().last()['id']) + 1
-    except Exception as e:
-        max_value = 1
-    # Date fomat yyyy-mm-dd
-    today = timezone.now().date().strftime("%Y-%m-%d")
-    params = {"NavItems": NavItems, "cards": cards, "operators": operators, "max_value": max_value, "today": today}
-    return render(request, "add.html", params)
-
-# Add item to dataBase
-def handleAddItem(request):
     if request.method == "POST":
         id = request.POST['add_id']
         name = request.POST['add_name']
@@ -55,34 +94,27 @@ def handleAddItem(request):
         address = request.POST['add_address']
         shop_keeper = request.POST['add_shop_keeper']
         
-        isNumber = False
+        addToDatabase = isValid(request, id, name, number, price, gender, load_type, operator, address, shop_keeper)
         
-        try:
-            if int(number) > 0:
-                isNumber = True
-            else:
-                isNumber = False
-        except:
-            message_allert = f"You have enter invalid Phone Number Please Enter a valid."
-            messages.error(request, message_allert)
-            return redirect('HomePage')
-        
-        # Form Validation
-        if isNumber:
-            newLoatItem = LoadMenu(id=id, name=name, number=number, price=price, gender=gender, date=date, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
-            newLoatItem.save()
-            
-            # Allert Message and redirect to the Home
-            message_allert = f"You have successfully added a new item {newLoatItem.name} | {newLoatItem.number} to the database"
-            messages.success(request, message_allert)
-        
-            return redirect('HomePage')
+        if addToDatabase:
+            newLoadItem = LoadMenu(id=id, name=name, number=number, price=price, gender=gender, date=date, load_type=load_type, operator=operator, address=address, shop_keeper=shop_keeper)
+            newLoadItem.save()
+            messages.success(request, "Load added successfully!")
         else:
-            message_allert = f"Error your record can't able to add in our database! Try to add a valid record."
-            messages.error(request, message_allert)
-            return redirect('HomePage')
+            pass
+
+        return redirect('HomePage')
     else:
-        return HttpResponse(request, "Error")
+        NavItems = NavItem.objects.all()
+        operators = OperatorItem.objects.all()
+        try:
+            max_value = int(LoadMenu.objects.values().last()['id']) + 1
+        except Exception as e:
+            max_value = 1
+        # Date fomat yyyy-mm-dd
+        today = timezone.now().date().strftime("%Y-%m-%d")
+        params = {"NavItems": NavItems, "operators": operators, "max_value": max_value, "today": today}
+        return render(request, "add.html", params)
 
 # View All database
 def view(request):
@@ -91,18 +123,66 @@ def view(request):
     params = {"NavItems": NavItems, "loadMenus": loadMenus}
     return render(request, "view.html", params)
 
-# Delete item Page
+# Delete Item
 def delete(request):
-    NavItems = NavItem.objects.all()
-    params = {"NavItems": NavItems}
-    return render(request, "delete.html", params)
+    if request.method == "POST":
+        id = request.POST['add_id']
+        itemToDelete = LoadMenu.objects.all().get(id=id)
+        
+        if not LoadMenu.objects.all().filter(id=id).exists:
+            messages.error(request, "Something went wrong!")
+        else:
+            itemToDelete.delete()
+            mes_alr = f"You have successfully Removed {itemToDelete.name} | {itemToDelete.number} from database."
+            messages.success(request, mes_alr)
+        
+        return redirect('HomePage')
+    else:
+        NavItems = NavItem.objects.all()
+        params = {"NavItems": NavItems}
+        return render(request, "delete.html", params)
 
+# Update Item
 def update(request):
-    NavItems = NavItem.objects.all()
-    params = {"NavItems": NavItems}
-    return render(request, "update.html", params)
+    if request.method == "POST":
+        id = request.POST['add_id']
+        name = request.POST['add_name']
+        date = request.POST['add_date']
+        number = request.POST['add_number']
+        price = request.POST['add_price']
+        gender = request.POST['add_gender']
+        load_type = request.POST['add_load_type']
+        operator = request.POST['add_operator']
+        address = request.POST['add_address']
+        shop_keeper = request.POST['add_shop_keeper']
+        
+        itemToUpdate = LoadMenu.objects.all().get(id=id)
+        
+        updateToDatabase = isValid(request, id, name, number, price, gender, load_type, operator, address, shop_keeper, addItem=False)
+        
+        if updateToDatabase:
+            itemToUpdate.id = id        
+            itemToUpdate.date = date 
+            itemToUpdate.name = name
+            itemToUpdate.number = number
+            itemToUpdate.price = price
+            itemToUpdate.gender = gender
+            itemToUpdate.load_type = load_type
+            itemToUpdate.operator = operator
+            itemToUpdate.address = address
+            itemToUpdate.shop_keeper = shop_keeper
+            
+            itemToUpdate.save()
+            messages.success(request, "Load added successfully!")
+        else:
+            pass
+        return redirect('HomePage')
+    else:
+        NavItems = NavItem.objects.all()
+        params = {"NavItems": NavItems}
+        return render(request, "update.html", params)
 
-# Preview item Page
+# Preview item Page To Delete
 def previewDelete(request):
     if request.method == "POST":
         NavItems = NavItem.objects.all()
@@ -119,6 +199,7 @@ def previewDelete(request):
     else:
         return HttpResponse(request, "Error")
     
+# Preview item Page To Update
 def previewUpdate(request):
     if request.method == "POST":
         NavItems = NavItem.objects.all()
@@ -136,42 +217,7 @@ def previewUpdate(request):
     else:
         return HttpResponse(request, "Error")
 
-def handleUpdateItem(request):
-    if request.method == "POST":
-        id = request.POST['add_id']
-        name = request.POST['add_name']
-        date = request.POST['add_date']
-        number = request.POST['add_number']
-        price = request.POST['add_price']
-        gender = request.POST['add_gender']
-        load_type = request.POST['add_load_type']
-        operator = request.POST['add_operator']
-        address = request.POST['add_address']
-        shop_keeper = request.POST['add_shop_keeper']
-        
-        itemToUpdate = LoadMenu.objects.all().get(id=id)
-
-        itemToUpdate.id = id        
-        itemToUpdate.date = date 
-        itemToUpdate.name = name
-        itemToUpdate.number = number
-        itemToUpdate.price = price
-        itemToUpdate.gender = gender
-        itemToUpdate.load_type = load_type
-        itemToUpdate.operator = operator
-        itemToUpdate.address = address
-        itemToUpdate.shop_keeper = shop_keeper
-        
-        itemToUpdate.save()
-        
-        mes_alt = f"Updated Successfully!"
-        messages.success(request, mes_alt)
-        return redirect('HomePage')
-    else:
-        mes_alr = f"Unknown Error! Please try again!"
-        messages.success(request, mes_alt)
-        return redirect('HomePage')
-
+# Load Item Preview for Update
 def itemPriewToUpdate(request):
     if request.method == "POST":
         IdToHandle = request.POST['IdToHandle']
@@ -183,7 +229,7 @@ def itemPriewToUpdate(request):
     else:
         return HttpResponse(request, "Error")
 
-# Actions
+# Load Item Preview for Delete
 def itemPriewToDelete(request):
     if request.method == "POST":
         IdToHandle = request.POST['IdToHandle']
@@ -194,15 +240,12 @@ def itemPriewToDelete(request):
     else:
         return HttpResponse(request, "Error")
 
-def handleDeleteItem(request):
+
+# Search Engine
+def searchEngine(request):
     if request.method == "POST":
-        id = request.POST['add_id']
-        itemToDelete = LoadMenu.objects.all().get(id=id)
-        mes_alr = f"You have successfully Removed {itemToDelete.name} | {itemToDelete.number} from database."
-        itemToDelete.delete()
-        messages.success(request, mes_alr)
-        return redirect('HomePage')
-    else:
-        mes_alr = f"Unknown Error! Please try again!"
-        messages.error(request, mes_alr)
-        return redirect('HomePage')
+        searchItem = request.POST['inputItem']
+        
+        itemsFound = LoadMenu.objects.filter(Q(id__icontains=searchItem) | Q(name__icontains=searchItem) | Q(number__icontains=searchItem) | Q(address__icontains=searchItem))
+        NavItems = NavItem.objects.all()
+        return render(request, "search.html", {"itemsFound": itemsFound, "NavItems": NavItems, "searchItem": searchItem})

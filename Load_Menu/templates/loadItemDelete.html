@@ -3,7 +3,7 @@
 {% load static %}
 {% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/add.css' %}">{% endblock %}
 {% block content %}
-<form id="add_from" action="deleteItem" method="POST">
+<form id="add_from" action="delete" method="POST">
     {% csrf_token %} 
     <div class="form_item">
         <label for="add_id">ID : </label>

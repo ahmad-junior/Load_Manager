@@ -4,19 +4,6 @@
 {% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/home.css' %}">{% endblock %}
 {% block content %}
 <div class="upBox">
-    <div class="cardBtns">
-        {% for card in cards %}
-        <div class="card">
-            <div class="icon">
-                <img src="{{card.pic_url}}" alt="{{card.pic_alt}}">
-            </div>
-            <div class="title_card">{{card.title}}</div>
-        </div>
-        {% empty %}
-        <h1>Record Not Found!</h1>
-        {% endfor %}
-    </div>
-
     <div class="rechargeDetails">
         <h3 class="secondary-heading">Today Rechare's Details</h3>
         <table class="table_r-d">

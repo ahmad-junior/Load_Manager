@@ -50,7 +50,7 @@ body{
     background: #00ff00;
 }
 
-#closeBtn{
+.closeBtn{
     font-size: 2rem;
     color: #fff;
     cursor: pointer;
@@ -58,7 +58,7 @@ body{
     padding: 0px 5px;
 }
 
-#closeBtn:hover{
+.closeBtn:hover{
     background: rgba(0, 0, 0, 0.1);
     border: 1px solid black;
 }

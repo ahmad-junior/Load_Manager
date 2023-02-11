@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Search | Load Manager{% endblock %}
+{% load static %}
+{% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/view.css' %}">{% endblock %}
+{% block content %}
+<h1 class="primary-heading">Search Results for {{searchItem}}</h1>
+<table class="table_r-v">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Price</th>
+            <th>Gender</th>
+            <th>Date</th>
+            <th>Load Type</th>
+            <th>Operator</th>
+            <th>Address</th>
+            <th>Shop Keeper</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in itemsFound reversed %}
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.number}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.gender}}</td>
+            <td>{{item.date}}</td>
+            <td>{{item.load_type}}</td>
+            <td>{{item.operator}}</td>
+            <td>{{item.address}}</td>
+            <td>{{item.shop_keeper}}</td>
+        </tr>
+        {% empty %}
+        <td colspan="10">Record Not Found!</td>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

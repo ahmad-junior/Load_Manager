@@ -1,11 +1,13 @@
 // Allert Box
-const allertBox = document.getElementById('alert-box');
+const allertBoxs = document.querySelectorAll('.alert-box');
 
 // Close Button
-const closeBtn = document.getElementById('closeBtn');
+const closeBtns = document.querySelectorAll('.closeBtn');
 
 
-// Events
-closeBtn.addEventListener('click', () => {
-    allertBox.style.display = "none";
+// Close Button
+Array.from(closeBtns).forEach((closeBtn) => {
+    closeBtn.addEventListener('click', () => {
+        closeBtn.parentElement.style.display = "none";
+    });
 });

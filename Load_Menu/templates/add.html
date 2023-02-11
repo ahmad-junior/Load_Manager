@@ -3,7 +3,7 @@
 {% load static %}
 {% block style %}<link rel="stylesheet" href="{% static 'Load_Menu/styles/add.css' %}">{% endblock %}
 {% block content %}
-<form id="add_from" action="resultAdd" method="POST">
+<form id="add_from" action="add" method="POST">
     {% csrf_token %} 
     <div class="form_item">
         <label for="add_id">ID : </label>
@@ -38,7 +38,7 @@
         <label for="add_load_type">Load Type : </label>
         <select name="add_load_type" id="add_load_type" required>
             <option disabled selected value="disabled">Select</option>
-            <option value="E - Load">E - Loead</option>
+            <option value="E - Load">E - Load</option>
             <option value="Package">Package</option>
             <option value="Other">Other</option>
         </select>

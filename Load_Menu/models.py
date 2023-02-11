@@ -14,19 +14,6 @@ class NavItem(models.Model):
 class NavItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'url')
 
-# Home Card Items
-class CardItem(models.Model):
-    title = models.CharField(max_length=50)
-    pic_url = models.CharField(max_length=250)
-    pic_alt = models.CharField(max_length=100)
-    
-    def __str__(self):
-        return self.title
-
-# Home Card Items Adim Page
-class CardItemAdmin(admin.ModelAdmin):
-    list_display = ('title', 'pic_url', 'pic_alt')
-    
 # Operators
 class OperatorItem(models.Model):
     title = models.CharField(max_length=50)

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'Load_Menu/styles/sinup_styles.css' %}">
+    <link rel="shortcut icon" href="{% static 'Load_Menu/images/favicon.png' %}" type="image/x-icon">
+    <title>SinUp | Load Manager</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header_sinup">
+            <p>Sin Up | Load Manger</p>
+        </div>
+        <form action="" id="form_sinup" method="post">
+            <div class="header_info_sinup">
+                <h1 class="primaryHeading">Create new account</h1>
+                <p>It's quick and easy!</p>
+            </div>
+            <div class="name_user">
+                <input type="text" name="firstName" id="firstName" placeholder="First Name" required>
+                <input type="text" name="lastName" id="lastName" placeholder="Surname" required>
+            </div>
+            <div class="email_user">
+                <input type="text" name="user_name_unique" id="user_name_unique" placeholder="Username" required>
+                <input type="email" name="email_user" id="email_user" placeholder="Email" required>
+            </div>
+            <div class="password_user_field">
+                <div class="inputFields">
+                    <input type="password" name="password_user" id="password_user" placeholder="New Password">
+                    <input type="password" name="password_user_confirm" id="password_user_confirm" placeholder="Confirm your Password">
+                    <div class="validationToUserPassword">
+                        <p>Password must contain:</p>
+                        <ol>
+                            <li id="pNumbers">Numbers</li>
+                            <li id="pLetters">Capital Letters</li>
+                            <li id="pSLetters">Special characters</li>
+                            <li id="p8len">8 characters</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="showsP">
+                    <input type="checkbox" name="showPassword" id="showPasswod">
+                    <label for="showPasswod">Show Password</label>
+                </div>
+            </div>
+            <div class="birthday_user">
+                <input type="date" name="birthday_user" id="birthday_user">
+            </div>
+            <div class="gender_user">
+                <div class="box-it">
+                    <input type="radio" name="gender" id="gender_male" value="Male" checked>
+                    <label for="gender_male">Male</label>
+                </div>
+                <div class="box-it">
+                    <input type="radio" name="gender" id="gender_female" value="Female">
+                    <label for="gender_female">Female</label>
+                </div>
+                <div class="box-it">
+                    <input type="radio" name="gender" id="gender_other" value="Other">
+                    <label for="gender_other">Other</label>
+                </div>
+            </div>
+            <div id="isNotReboot">
+                <p>Please Solve the following Puzzle!</p>
+                <div class="inside">
+                    <span class="bold" id="isNotRebootOperandOne"></span>
+                    <span class="bold"> + </span>
+                    <span class="bold" id="isNotRebootOperandTwo"></span>
+                    <span class="bold"> = </span>
+                    <input type="text" name="isNotRebootSollution" id="isNotRebootSollution">
+                </div>
+            </div>
+            <div class="button_sinup">
+                <button type="submit" name="button_sinup" id="button_sinup" style="opacity: 0.3; pointer-events: none;">Create Account</button>
+            </div>
+            <div class="loginLink">
+                <a href="login">Already have an account? Login</a>
+            </div>
+        </form>
+    </div>
+
+    {% load static %}
+    {% block script %}<script src="{% static 'Load_Menu/js/sinup_validation.js' %}"></script>{% endblock %}
+</body>
+</html>
